@@ -1,0 +1,29 @@
+<div class="user-form-container">
+  <form class="form" [formGroup]="form">
+    <mat-form-field>
+      <mat-label>User Name</mat-label>
+      <input matInput formControlName="userName" required />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Birth Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="birthDate" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <h3>Addresses</h3>
+    <button mat-button (click)="addAddress()">Add Address</button>
+
+    <div>
+      @for (address of addresses(); track address) {
+      <app-address
+        [addressForm]="address"
+        (addressChange)="updateAddress($index, $event)"
+      ></app-address>
+      <button mat-button (click)="removeAddress($index)">Remove Address</button>
+      }
+    </div>
+    <button mat-raised-button (click)="addUser()">add user</button>
+  </form>
+</div>

@@ -1,0 +1,7 @@
+@import '../shared/styles/mixins.scss';
+
+:host {
+    .form {
+        @include flex((direction:column))
+    }
+}

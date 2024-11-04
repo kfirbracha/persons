@@ -1,0 +1,17 @@
+@import '../shared/styles/mixins.scss';
+@import '../shared/styles/colors.scss';
+
+:host {
+    .table-container {
+        @include flex((direction:column));
+    }
+
+    .add-new-user-button {
+        background-color: $bg-primary;
+        color: $white;
+    }
+
+    .button-container {
+        margin-top: 1rem;
+    }
+}

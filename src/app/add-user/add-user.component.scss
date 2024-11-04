@@ -1,0 +1,10 @@
+@import "../shared/styles/mixins.scss";
+
+:host {
+    .user-form-container {
+        .form {
+
+            @include flex((direction:column))
+        }
+    }
+}

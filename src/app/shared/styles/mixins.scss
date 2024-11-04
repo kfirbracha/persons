@@ -1,0 +1,16 @@
+@mixin flex($options: ()) {
+    $defaults : (direction: row,
+            justify-content: center,
+            align-content: center,
+            height:100%,
+            width:100%);
+
+    $settings: map-merge($defaults, $options );
+
+    display: flex;
+    flex-direction: map-get($settings , direction);
+    justify-content: map-get($settings, justify-content);
+    align-items: map-get($settings, align-items);
+    height: map-get($settings, height);
+    width: map-get($settings, width);
+}
