@@ -1,0 +1,25 @@
+@import '../../shared/styles/mixins.scss';
+
+:host {
+    .city-dialog-container {
+        @include flex((align-content:center,
+                direction:column))
+    }
+
+    .city-form {
+        @include flex((direction:column));
+        height: auto;
+    }
+
+    .close-button {
+        background: transparent;
+        border: transparent;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .name-input {
+        width: 100%;
+    }
+}

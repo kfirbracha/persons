@@ -1,7 +1,19 @@
 @import '../shared/styles/mixins.scss';
+@import '../shared/styles/colors.scss';
 
 :host {
     .form {
-        @include flex((direction:column))
+        @include flex((direction:column, align-items:stretch, justify-content:space-between))
+    }
+
+
+    .cities-container {
+        @include flex((align-items:baseline))
+    }
+
+    .add-city-button {
+        background-color: $accent;
+        color: $white;
+        margin-left: 10px;
     }
 }

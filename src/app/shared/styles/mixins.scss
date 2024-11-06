@@ -1,7 +1,7 @@
 @mixin flex($options: ()) {
     $defaults : (direction: row,
             justify-content: center,
-            align-content: center,
+            align-items: center,
             height:100%,
             width:100%);
 

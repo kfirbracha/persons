@@ -88,6 +88,7 @@ export class LoggerService {
   }
   private formatLogEntry(entry: LogEntry): string {
     const { timestamp, level, component, line, message } = entry;
+
     const formattedMessage =
       typeof message === 'string' ? message : JSON.stringify(message);
 

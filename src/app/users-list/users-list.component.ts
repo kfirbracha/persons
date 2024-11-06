@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -18,13 +19,19 @@ import { HttpService } from '../shared/services/http.service';
 @Component({
   selector: 'app-users-list',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, RouterModule],
+  imports: [
+    MatTableModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    RouterModule,
+    DatePipe,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.scss',
 })
 export class UsersListComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'email'];
+  displayedColumns: string[] = ['id', 'name', 'birthdate', 'addresses'];
   dataSource = signal<IUser[]>([]);
   pageIndex = signal(0);
   pageSize = signal(10);

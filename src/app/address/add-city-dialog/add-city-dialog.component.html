@@ -1,0 +1,18 @@
+<div class="city-dialog-container">
+  <p>Add city to {{ country.name }}</p>
+  <button class="close-button" (click)="handlerCloseDialog()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <form class="city-form" [formGroup]="form" (ngSubmit)="handlerAddCity()">
+    <mat-form-field>
+      <mat-label>name</mat-label>
+      <input formControlName="city" matInput type="text" />
+    </mat-form-field>
+    @if(form.touched && !form.valid){ @if(form.controls.city.errors?.['isServiceError']){
+    <mat-error>{{ form.controls.city.errors?.['isServiceError'] }}</mat-error>
+    }@else if(form.controls.city.errors?.['required']){
+    <mat-error>Name must not be empty</mat-error>
+    } }
+    <button mat-raised-button type="submit">save</button>
+  </form>
+</div>

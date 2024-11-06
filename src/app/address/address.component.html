@@ -6,26 +6,39 @@
 
   <mat-form-field>
     <mat-label>Country</mat-label>
-    <mat-select formControlName="country" required>
-      @for(country of countries; track country) {
-      <mat-option [value]="country">
-        {{ country }}
+    <mat-select
+      formControlName="country"
+      (valueChange)="getCountriesAndCitiesData()"
+      required
+    >
+      @for(country of countries(); track country.id) {
+      <mat-option [value]="country.id">
+        {{ country.name }}
       </mat-option>
       }
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>City</mat-label>
-    <mat-select formControlName="city" required>
-      @for(city of cities[addressForm.get('country')?.value] || []; track city)
-      {
-      <mat-option [value]="city">
-        {{ city }}
-      </mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
+  <div class="cities-container">
+    <mat-form-field>
+      <mat-label>City</mat-label>
+      <mat-select formControlName="city" required>
+        @for(city of cities() || []; track city.id) {
+        <mat-option [value]="city.id">
+          {{ city.name }}
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      class="add-city-button"
+      (click)="handlerAddCity()"
+      color="accent"
+    >
+      Add city
+    </button>
+  </div>
 
   <mat-form-field>
     <mat-label>Street</mat-label>
