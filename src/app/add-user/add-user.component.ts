@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject, signal } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject, signal } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -27,6 +27,7 @@ import { HttpService } from "../shared/services/http.service";
   ],
   templateUrl: "./add-user.component.html",
   styleUrl: "./add-user.component.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddUserComponent {
   private fb = inject(FormBuilder);
@@ -35,12 +36,15 @@ export class AddUserComponent {
 
   public form = this.fb.group({
     name: [null, [Validators.required]],
-    birthdate: [null],
-    addresses: this.fb.array([this.createAddressControl()]),
+    birthdate: [new Date()],
+    addresses: this.fb.array([]),
   });
 
-  public addressesArr = signal<FormGroup[]>([this.createAddressControl()]);
+  public addressesArr = signal<FormGroup[]>([]);
 
+  constructor() {
+    this.addAddress();
+  }
   addAddress(): void {
     const newAddressControl = this.createAddressControl();
 
@@ -50,7 +54,10 @@ export class AddUserComponent {
   }
 
   removeAddress(index: number): void {
-    this.addressesArr.update((addresses) => addresses.filter((_, i) => i !== index));
+    if (this.addressesArr()?.length !== 1) {
+      this.addressesArr.update((addresses) => addresses.filter((_, i) => i !== index));
+      this.form.controls.addresses.removeAt(index);
+    }
   }
 
   updateAddress(index: number, value: Address): void {
@@ -87,6 +94,8 @@ export class AddUserComponent {
           this.dialog.open(SuccessComponent);
         }
       });
+    } else {
+      this.form.markAllAsTouched();
     }
   }
 }

@@ -3,14 +3,12 @@
     <mat-label>Name</mat-label>
     <input matInput formControlName="name" required />
   </mat-form-field>
-
+  @if(addressForm.get('name')?.invalid && addressForm.touched&& addressForm.get('name')?.errors?.['required']){
+  <mat-error>Name Is Required</mat-error>
+  }
   <mat-form-field>
     <mat-label>Country</mat-label>
-    <mat-select
-      formControlName="country"
-      (valueChange)="getCountriesAndCitiesData()"
-      required
-    >
+    <mat-select formControlName="country" (valueChange)="getCountriesAndCitiesData()" required>
       @for(country of countries(); track country.id) {
       <mat-option [value]="country.id">
         {{ country.name }}
@@ -18,6 +16,9 @@
       }
     </mat-select>
   </mat-form-field>
+  @if(addressForm.get('country')?.invalid && addressForm.touched){
+  <mat-error>Country Is Required</mat-error>
+  }
 
   <div class="cities-container">
     <mat-form-field>
@@ -30,18 +31,18 @@
         }
       </mat-select>
     </mat-form-field>
-    <button
-      mat-raised-button
-      class="add-city-button"
-      (click)="handlerAddCity()"
-      color="accent"
-    >
-      Add city
-    </button>
+
+    <button mat-raised-button class="add-city-button" (click)="handlerAddCity()" color="accent">Add city</button>
   </div>
+  @if(addressForm.get('city')?.invalid && addressForm.touched){
+  <mat-error>City Is Required</mat-error>
+  }
 
   <mat-form-field>
     <mat-label>Street</mat-label>
     <input matInput formControlName="street" required />
   </mat-form-field>
+  @if(addressForm.get('street')?.invalid && addressForm.touched){
+  <mat-error>Street Is Required</mat-error>
+  }
 </form>

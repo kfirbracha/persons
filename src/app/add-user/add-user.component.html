@@ -1,4 +1,5 @@
 <div class="user-form-container">
+  <h2>Add user Form</h2>
   <form class="form" [formGroup]="form">
     <mat-form-field>
       <mat-label>User Name</mat-label>
@@ -13,7 +14,7 @@
       <input matInput [matDatepicker]="picker" formControlName="birthdate" />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
-      @if(form.get('birthdate')?.invalid && (form.get('birthdate')?.dirty || form.get('birthdate')?.touched)) {
+      @if(form.get('birthdate')?.invalid && form.get('birthdate')?.touched) {
       <mat-error>
         @if(form.get('birthdate')?.errors?.['required']) {
         <span> Birth Date is required.</span> } @else if(form.get('birthdate')?.errors?.['matDatepickerParse']) {
@@ -25,15 +26,15 @@
 
     <h3>Addresses</h3>
 
-    <div>
-      @for (address of addressesArr(); track address) {
+    <div formArrayName="addresses">
+      @for (address of addressesArr(); track $index) {
       <app-address [addressForm]="address" (addressChange)="updateAddress($index, $event)"></app-address>
       <button mat-raised-button class="remove-button-button" (click)="removeAddress($index)">Remove Address</button>
       }
     </div>
-    <button class="add-button address" mat-raised-button (click)="addAddress()">Add Address</button>
     <div class="add-button-container">
       <button class="add-button" mat-raised-button (click)="addUser()">save</button>
     </div>
+    <button class="add-button address" mat-raised-button (click)="addAddress()">Add Address</button>
   </form>
 </div>
